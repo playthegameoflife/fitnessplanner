@@ -27,6 +27,10 @@ const PORT = process.env.PORT || 4242; // Default to 4242 if not specified in .e
 
 // Initialize Stripe with the secret key
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const jwt = require('jsonwebtoken'); // For generating JWTs
+
+// Import user service
+const userService = require('./services/userService'); // Assuming userService.js is in services/
 
 // Start the server
 app.listen(PORT, () => {
@@ -133,5 +137,112 @@ app.post('/api/webhook', express.raw({type: 'application/json'}), async (req, re
   // Return a 200 response to acknowledge receipt of the event
   res.status(200).json({ received: true });
 });
+
+// --- AUTHENTICATION ROUTES ---
+
+// POST /api/auth/register - User Registration
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Basic validation
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+    // Add more robust validation as needed (e.g., email format, password strength)
+
+    const newUser = await userService.createUser({ email, password });
+    res.status(201).json({ message: 'User registered successfully.', user: newUser });
+
+  } catch (error) {
+    if (error.message === 'Email already in use.') {
+      return res.status(409).json({ error: error.message }); // 409 Conflict
+    }
+    if (error.message === 'Failed to secure password.') {
+        return res.status(500).json({ error: 'Server error during registration (password security).' });
+    }
+    console.error('Registration error:', error);
+    res.status(500).json({ error: 'Server error during registration.' });
+  }
+});
+
+// POST /api/auth/login - User Login
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    const user = await userService.findUserByEmail(email);
+    if (!user) {
+      // Generic message to avoid revealing if email exists or not
+      return res.status(401).json({ error: 'Invalid credentials.' });
+    }
+
+    const isPasswordValid = await userService.verifyPassword(password, user.passwordHash);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: 'Invalid credentials.' });
+    }
+
+    // Check if JWT_SECRET is configured
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+        console.error('JWT_SECRET is not configured in .env file.');
+        return res.status(500).json({ error: 'Authentication configuration error.' });
+    }
+
+    // Generate JWT
+    const tokenPayload = {
+      userId: user.id,
+      email: user.email,
+      // Add other relevant non-sensitive user info if needed
+    };
+
+    const token = jwt.sign(tokenPayload, jwtSecret, { expiresIn: '1h' }); // Token expires in 1 hour
+
+    // Exclude password hash from user object sent in response (if sending user object)
+    const { passwordHash, ...userWithoutPassword } = user;
+
+    res.status(200).json({
+        message: 'Login successful.',
+        token: token,
+        user: userWithoutPassword // Optionally send back some user info
+    });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Server error during login.' });
+  }
+});
+
+// Import Auth Middleware
+const authMiddleware = require('./middleware/authMiddleware');
+
+// GET /api/me - Example Protected Route to get current user info
+app.get('/api/me', authMiddleware, async (req, res) => {
+  // If authMiddleware passes, req.user will be populated with the token payload
+  try {
+    // Optionally, you could fetch fresh user data from the database if needed,
+    // but for this example, the token payload is sufficient.
+    const userFromDb = await userService.findUserByEmail(req.user.email);
+    if (!userFromDb) {
+        // This case should ideally not happen if token is valid and user exists
+        return res.status(404).json({ error: 'User not found, though token was valid.' });
+    }
+    const { passwordHash, ...userWithoutPassword } = userFromDb; // Exclude hash
+
+    res.status(200).json({
+        message: 'Successfully accessed protected user data.',
+        user: userWithoutPassword // Send user data from DB (excluding hash)
+        // or simply: user: req.user (if token payload is enough and fresh data isn't critical)
+    });
+  } catch (error) {
+    console.error('Error fetching user for /api/me:', error);
+    res.status(500).json({ error: 'Server error while fetching user data.' });
+  }
+});
+
 
 module.exports = app; // Export for potential testing or programmatic use (optional)
