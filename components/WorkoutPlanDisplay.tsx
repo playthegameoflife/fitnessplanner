@@ -8,7 +8,7 @@ const ExerciseDetailDisplay: React.FC<{ title: string; content?: string }> = ({ 
   if (!content || content.toLowerCase() === 'n/a' || content.trim() === '') return null;
   return (
     <div className="mt-2">
-      <h5 className="text-xs font-semibold text-sky-400">{title}:</h5>
+      <h5 className="text-xs font-semibold text-emerald-400">{title}:</h5>
       <p className="text-xs text-slate-300 whitespace-pre-line">{content}</p>
     </div>
   );
@@ -35,7 +35,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise, dayIndex, exercis
     <div className="bg-slate-700 p-3 rounded-lg shadow">
       <div className="flex justify-between items-start">
         <div>
-          <h4 className="text-md font-semibold text-sky-300">{exercise.name}</h4>
+          <h4 className="text-md font-semibold text-emerald-300">{exercise.name}</h4>
           <p className="text-sm text-slate-300">Sets: {exercise.sets}, Reps: {exercise.reps}, Rest: {exercise.rest}</p>
           {exercise.notes && <p className="text-xs text-slate-400 mt-1">Notes: {exercise.notes}</p>}
         </div>
@@ -43,7 +43,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise, dayIndex, exercis
           {hasDetails && (
             <button 
               onClick={() => setShowDetails(!showDetails)}
-              className="text-xs text-sky-400 hover:text-sky-300 p-1 whitespace-nowrap"
+              className="text-xs text-emerald-400 hover:text-emerald-300 p-1 whitespace-nowrap"
               aria-expanded={showDetails}
               aria-controls={`exercise-details-${exercise.name.replace(/\s+/g, '-')}`}
               disabled={isCurrentlyLoading}
@@ -53,7 +53,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({ exercise, dayIndex, exercis
           )}
           <button
             onClick={() => onSwap(dayIndex, exerciseIndex)}
-            className="text-xs bg-sky-600 hover:bg-sky-700 text-white px-2 py-1 rounded shadow disabled:bg-slate-500 whitespace-nowrap"
+            className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-2 py-1 rounded shadow disabled:bg-slate-500 whitespace-nowrap"
             disabled={isCurrentlyLoading}
             aria-label={`Swap ${exercise.name}`}
           >
@@ -91,11 +91,11 @@ const WorkoutDayCard: React.FC<WorkoutDayCardProps> = ({ dayPlan, index, isOpen,
     >
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-xl font-semibold text-sky-400">{dayPlan.day}</h3>
+          <h3 className="text-xl font-semibold text-emerald-400">{dayPlan.day}</h3>
           <p className="text-sm text-slate-400">{dayPlan.focus}</p>
         </div>
         <span className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-sky-400">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-emerald-400">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </span>
@@ -105,7 +105,7 @@ const WorkoutDayCard: React.FC<WorkoutDayCardProps> = ({ dayPlan, index, isOpen,
       <div id={`workout-day-${index}`} className="p-4 border-t border-slate-700">
         {dayPlan.warmUp && (
           <div className="mb-3">
-            <h4 className="text-md font-medium text-sky-300">Warm-up:</h4>
+            <h4 className="text-md font-medium text-emerald-300">Warm-up:</h4>
             <p className="text-sm text-slate-300 whitespace-pre-line">{dayPlan.warmUp}</p>
           </div>
         )}
@@ -127,7 +127,7 @@ const WorkoutDayCard: React.FC<WorkoutDayCardProps> = ({ dayPlan, index, isOpen,
         </div>
         {dayPlan.coolDown && (
           <div>
-            <h4 className="text-md font-medium text-sky-300">Cool-down:</h4>
+            <h4 className="text-md font-medium text-emerald-300">Cool-down:</h4>
             <p className="text-sm text-slate-300 whitespace-pre-line">{dayPlan.coolDown}</p>
           </div>
         )}
@@ -154,8 +154,8 @@ export const WorkoutPlanDisplay: React.FC<WorkoutPlanDisplayProps> = ({ plan, on
   if (!plan) {
     return (
       <div className="text-center p-8 bg-slate-800 rounded-lg shadow-xl">
-        <DumbbellIcon className="w-16 h-16 text-sky-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-semibold text-sky-400 mb-2">No Workout Plan Available</h2>
+        <DumbbellIcon className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
+        <h2 className="text-2xl font-semibold text-emerald-400 mb-2">No Workout Plan Available</h2>
         <p className="text-slate-400">Please generate a plan from the Profile tab.</p>
       </div>
     );
@@ -164,12 +164,12 @@ export const WorkoutPlanDisplay: React.FC<WorkoutPlanDisplayProps> = ({ plan, on
   return (
     <div className="space-y-6 p-4 md:p-6 bg-slate-800 rounded-xl shadow-xl">
       <div className="text-center mb-6">
-        <DumbbellIcon className="w-12 h-12 text-sky-500 mx-auto mb-3" />
-        <h1 className="text-3xl font-bold text-sky-400 tracking-tight">{plan.title}</h1>
+        <DumbbellIcon className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
+        <h1 className="text-3xl font-bold text-emerald-400 tracking-tight">{plan.title}</h1>
         {plan.introduction && <p className="mt-2 text-md text-slate-300 max-w-2xl mx-auto">{plan.introduction}</p>}
          <button
             onClick={onExport}
-            className="mt-4 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white text-sm font-semibold rounded-lg shadow-md transition-colors"
+            className="mt-4 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg shadow-md transition-colors"
           >
             Export Workout Plan to Text
           </button>

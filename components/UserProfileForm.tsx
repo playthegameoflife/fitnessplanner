@@ -18,7 +18,7 @@ interface UserProfileFormProps {
 
 const FormSection: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
   <div className="mb-8 p-6 bg-slate-800 rounded-xl shadow-xl">
-    <h2 className="text-2xl font-semibold text-sky-400 mb-6 border-b border-slate-700 pb-2">{title}</h2>
+    <h2 className="text-2xl font-semibold text-emerald-400 mb-6 border-b border-slate-700 pb-2">{title}</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{children}</div>
   </div>
 );
@@ -30,11 +30,11 @@ const FormField: React.FC<{ label: string; children: React.ReactNode; fullWidth?
   </div>
 );
 
-const inputClasses = "w-full p-3 bg-slate-700 border border-slate-600 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-slate-100 placeholder-slate-400";
+const inputClasses = "w-full p-3 bg-slate-700 border border-slate-600 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 text-slate-100 placeholder-slate-400";
 const selectClasses = inputClasses;
 const checkboxGroupContainerClasses = "space-y-2 p-3 bg-slate-700 border border-slate-600 rounded-md max-h-40 overflow-y-auto";
-const checkboxLabelClasses = "flex items-center space-x-2 text-slate-200 cursor-pointer hover:text-sky-300";
-const checkboxInputClasses = "h-4 w-4 text-sky-600 border-slate-500 rounded focus:ring-sky-500";
+const checkboxLabelClasses = "flex items-center space-x-2 text-slate-200 cursor-pointer hover:text-emerald-300";
+const checkboxInputClasses = "h-4 w-4 text-emerald-600 border-slate-500 rounded focus:ring-emerald-500";
 
 
 export const UserProfileForm: React.FC<UserProfileFormProps> = ({
@@ -182,7 +182,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
         <button
           onClick={() => { onGeneratePlan(); }}
           disabled={isLoading}
-          className="flex items-center justify-center w-full sm:w-auto px-12 py-4 bg-sky-600 hover:bg-sky-700 disabled:bg-slate-500 text-white font-semibold rounded-lg shadow-lg transform transition-all duration-150 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+          className="flex items-center justify-center w-full sm:w-auto px-12 py-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-500 text-white font-semibold rounded-lg shadow-lg transform transition-all duration-150 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-slate-900"
         >
           <SparklesIcon className="w-6 h-6 mr-2" />
           {isLoading ? (existingPlan ? 'Updating Your Plan...' : 'Generating Your Plan...') : generateButtonText}

@@ -396,9 +396,9 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-slate-900 text-slate-100 p-4 md:p-8">
       <header className="text-center mb-8 md:mb-12">
         <div className="flex items-center justify-center space-x-3">
-          <SparklesIcon className="w-10 h-10 md:w-12 md:h-12 text-sky-500" />
+          <SparklesIcon className="w-10 h-10 md:w-12 md:h-12 text-emerald-500" />
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-            <span className="text-sky-400">AI Fitness</span> <span className="text-slate-300">Planner</span>
+            <span className="text-emerald-400">AI Fitness</span> <span className="text-slate-300">Planner</span>
           </h1>
         </div>
         <p className="mt-3 text-lg text-slate-400 max-w-2xl mx-auto">Your personalized path to peak fitness, powered by AI.</p>
@@ -472,26 +472,26 @@ const App: React.FC = () => {
       </main>
 
       <div className="max-w-5xl mx-auto mt-8 p-4 bg-slate-800 rounded-lg shadow-md">
-        <h3 className="text-lg font-semibold text-sky-400 mb-2">API Key Settings</h3>
+        <h3 className="text-lg font-semibold text-emerald-400 mb-2">API Key Settings</h3>
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <input 
             type="password"
             placeholder="Enter your Gemini API Key"
             value={userApiKeyInput}
             onChange={(e) => setUserApiKeyInput(e.target.value)}
-            className="flex-grow p-2 bg-slate-700 border border-slate-600 rounded-md text-slate-100 placeholder-slate-400 focus:ring-sky-500 focus:border-sky-500"
+            className="flex-grow p-2 bg-slate-700 border border-slate-600 rounded-md text-slate-100 placeholder-slate-400 focus:ring-emerald-500 focus:border-emerald-500"
             aria-label="Gemini API Key"
           />
           <button
             onClick={handleSaveApiKey}
-            className="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-md transition-colors w-full sm:w-auto"
+            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-md transition-colors w-full sm:w-auto"
           >
             Save & Initialize Key
           </button>
         </div>
         <p className="text-xs text-slate-400 mt-2">
           Your API key is stored locally in your browser and used to communicate with the Gemini API. 
-          Get your key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:underline">Google AI Studio</a>.
+          Get your key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Google AI Studio</a>.
         </p>
       </div>
 
