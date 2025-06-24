@@ -44,6 +44,24 @@ export const UserIcon = (props) => (
   )
 );
 
+export const LoginIcon = (props) => (
+  React.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", ...props
+  },
+  React.createElement('path', {
+    strokeLinecap:"round", strokeLinejoin:"round", d:"M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m-3 0h6m-6 0l1.5-1.5m-1.5 1.5l1.5 1.5"
+  }))
+);
+
+export const LogoutIcon = (props) => (
+  React.createElement('svg', {
+    xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", ...props
+  },
+  React.createElement('path', {
+    strokeLinecap:"round", strokeLinejoin:"round", d:"M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+  }))
+);
+
 export const DumbbellIcon = (props) => (
   React.createElement('svg', {
     xmlns: "http://www.w3.org/2000/svg",
